@@ -28,18 +28,29 @@ public class JSONOreGen {
 		
 		JsonFactory factory = new JsonFactory();
 		
-		DefaultPrettyPrinter.Indenter ind = new DefaultIndenter("\t", DefaultIndenter.SYS_LF);
 		@SuppressWarnings("serial")
 		DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter() {
 			@Override
-			public void writeObjectFieldValueSeparator(JsonGenerator jg) throws IOException
-			{
+			public void writeObjectFieldValueSeparator(JsonGenerator jg) throws IOException {
+				// No spaces after the quote marks for objects
 				jg.writeRaw(": ");
 			}
+			
+		    @Override
+		    public void writeEndObject(JsonGenerator g, int nrOfEntries) throws IOException {
+		    	super.writeEndObject(g, nrOfEntries);
+		        // If there is no nesting levels left were are end of file, add an empty line, makes git based stuff happier
+		        if (_nesting == 0) {
+		        	g.writeRaw(DefaultIndenter.SYS_LF);		        	
+		        }
+		    }
 		};
+		// We want tabs not spaces
+		DefaultPrettyPrinter.Indenter ind = new DefaultIndenter("\t", DefaultIndenter.SYS_LF);
 		prettyPrinter.indentObjectsWith(ind);
 		prettyPrinter.indentArraysWith(ind);
 		
+		// Step through all the blocks and generate the formatted JSON
 		for (BlockData blockData : BlockData.values()) {
 			CoFH(blockData, factory, prettyPrinter);
 			// TODO: Write MMD json structure
@@ -89,13 +100,7 @@ public class JSONOreGen {
 							for (int dimension : bd.getDimension()) {
 								g.writeNumber(dimension);
 							}
-						g.writeEndArray();
-					g.writeEndObject();
-				g.writeEndObject();
-			g.writeEndObject();
-		g.writeEndObject();
-		g.writeRawValue(DefaultIndenter.SYS_LF);
-		g.close();		
+		g.close(); // Close will auto-end all end nesting levels
 	}
 	
 	/**
