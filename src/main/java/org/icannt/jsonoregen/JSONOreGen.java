@@ -52,9 +52,15 @@ public class JSONOreGen {
 		
 		// Step through all the blocks and generate the formatted JSON
 		for (BlockData blockData : BlockData.values()) {
-			CoFH(blockData, factory, prettyPrinter);
-			// TODO: Write MMD json structure
-			MMD(blockData, factory, prettyPrinter);
+			// Any entry that is marked with rank 999, we don't want auto generated
+			if (blockData.getRank() < 999) {
+				
+				System.out.println(blockData.getDimensionName());
+				
+				//CoFH(blockData, factory, prettyPrinter);
+				// TODO: Write MMD json structure
+				//MMD(blockData, factory, prettyPrinter);				
+			}
 		}
 		
 	}
