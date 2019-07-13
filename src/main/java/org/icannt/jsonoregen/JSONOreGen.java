@@ -39,7 +39,7 @@ public class JSONOreGen {
 		    @Override
 		    public void writeEndObject(JsonGenerator g, int nrOfEntries) throws IOException {
 		    	super.writeEndObject(g, nrOfEntries);
-		        // If there is no nesting levels left were are end of file, add an empty line, makes git based stuff happier
+		        // If there is no nesting levels left we are at end of file, add an empty line, makes git based stuff happier
 		        if (_nesting == 0) {
 		        	g.writeRaw(DefaultIndenter.SYS_LF);		        	
 		        }
@@ -54,12 +54,12 @@ public class JSONOreGen {
 		for (BlockData blockData : BlockData.values()) {
 			// Any entry that is marked with rank 999, we don't want auto generated
 			if (blockData.getRank() < 999) {
-				
-				System.out.println(blockData.getDimensionName());
-				
-				//CoFH(blockData, factory, prettyPrinter);
+				CoFH(blockData, factory, prettyPrinter);
 				// TODO: Write MMD json structure
 				//MMD(blockData, factory, prettyPrinter);				
+			}
+			if (blockData.getRank() == 999) {
+				System.out.println("Not Generated: "+blockData.getBlocks());
 			}
 		}
 		
@@ -77,7 +77,9 @@ public class JSONOreGen {
 	 */
 	public static void CoFH(BlockData bd, JsonFactory fac, DefaultPrettyPrinter pp) throws IOException {
 		
-		JsonGenerator g = fac.createGenerator(new File("jsonout/cofh/"+bd.getBlocks()+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
+		String fileName = bd.getDimensionName()+"_"+bd.getRank()+"0_netherendingores_"+bd.getBlocks();
+		
+		JsonGenerator g = fac.createGenerator(new File("jsonout/cofh/"+fileName+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
 		
 		g.writeStartObject();
 			g.writeStringField("dependencies", bd.getDependencies());				
