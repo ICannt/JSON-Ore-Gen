@@ -2,6 +2,7 @@ package org.icannt.jsonoregen;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -17,6 +18,9 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 
 public class JSONOreGen {
 	
+	// Netherending ores uses "blocks" for the variant property name in its json files
+	private static final String variantName = "blocks";
+
 	/**
 	 * The main class gets the JsonFactory started, pretty printer configured and then
 	 * attempts to run the JSON writing methods.
@@ -59,10 +63,10 @@ public class JSONOreGen {
 				//MMD(blockData, factory, prettyPrinter);				
 			}
 			if (blockData.getRank() == 999) {
-				System.out.println("Not Generated: "+blockData.getBlocks());
+				System.out.println("Not Generated: "+blockData.getObjectRef());
 			}
 		}
-		
+
 	}
 	
 	/**
@@ -77,7 +81,7 @@ public class JSONOreGen {
 	 */
 	public static void CoFH(BlockData bd, JsonFactory fac, DefaultPrettyPrinter pp) throws IOException {
 		
-		String fileName = bd.getDimensionName()+"_"+bd.getRank()+"0_netherendingores_"+bd.getBlocks();
+		String fileName = bd.getDimensionName()+"_"+bd.getRank()+"0_netherendingores_"+bd.toString().toLowerCase(Locale.ENGLISH);
 		
 		JsonGenerator g = fac.createGenerator(new File("jsonout/cofh/"+fileName+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
 		
@@ -90,7 +94,7 @@ public class JSONOreGen {
 						g.writeObjectFieldStart("block");
 							g.writeStringField("name", bd.getName());
 							g.writeObjectFieldStart("properties");
-								g.writeStringField("type", bd.getBlocks());
+								g.writeStringField(variantName, bd.getVariant());
 							g.writeEndObject();
 						g.writeEndObject();
 						g.writeStringField("material", bd.getMaterial());
@@ -122,7 +126,7 @@ public class JSONOreGen {
 	 */
 	public static void MMD(BlockData bd, JsonFactory fac, DefaultPrettyPrinter pp) throws IOException {
 		
-		JsonGenerator g = fac.createGenerator(new File("jsonout/mmd/"+bd.getBlocks()+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
+		JsonGenerator g = fac.createGenerator(new File("jsonout/mmd/"+bd.getVariant()+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
 		
 		g.writeStartObject();
 
