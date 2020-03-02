@@ -8,7 +8,9 @@ package org.icannt.jsonoregen;
 
 public enum BlockData {
 	
+	// TODO: Possibly ditch this Enum entirely and import a CSV file, wouild be quite a rewrite though
 	
+	// Start Netherending Ores Data
     END_ALUMINUM_ORE ("end-aluminum", 124, "netherendingores", "uniform", false, "netherendingores:ore_end_modded_1", "aluminum_ore", "minecraft:end_stone", 4, 2, 10, 55, true, "all", "whitelist", new int[]{1}),
     END_COPPER_ORE ("end-copper", 135, "netherendingores", "uniform", false, "netherendingores:ore_end_modded_1", "copper_ore", "minecraft:end_stone", 6, 5, 10, 55, true, "all", "whitelist", new int[]{1}),
     END_IRIDIUM_ORE ("end-iridium", 110, "netherendingores", "uniform", true, "netherendingores:ore_end_modded_1", "iridium_ore", "minecraft:end_stone", 3, 1, 10, 55, true, "all", "whitelist", new int[]{1}),
@@ -42,6 +44,7 @@ public enum BlockData {
     END_IRON_ORE ("end-iron", 105, "netherendingores", "uniform", false, "netherendingores:ore_end_vanilla", "iron_ore", "minecraft:end_stone", 6, 5, 10, 55, true, "all", "whitelist", new int[]{1}),
     END_LAPIS_ORE ("end-lapis", 102, "netherendingores", "uniform", false, "netherendingores:ore_end_vanilla", "lapis_ore", "minecraft:end_stone", 4, 4, 10, 55, true, "all", "whitelist", new int[]{1}),
     END_REDSTONE_ORE ("end-redstone", 104, "netherendingores", "uniform", false, "netherendingores:ore_end_vanilla", "redstone_ore", "minecraft:end_stone", 6, 4, 10, 55, true, "all", "whitelist", new int[]{1}),
+    END_ENDERMITE_BLOCK ("end-endermite-block", 190, "netherendingores", "uniform", false, "netherendingores:block_end_endermite", "", "minecraft:end_stone", 8, 5, 10, 55, true, "all", "whitelist", new int[]{1}),
     NETHER_ALUMINUM_ORE ("nether-aluminum", 122, "netherendingores", "uniform", false, "netherendingores:ore_nether_modded_1", "aluminum_ore", "minecraft:netherrack", 6, 3, 10, 118, true, "all", "whitelist", new int[]{-1}),
     NETHER_COPPER_ORE ("nether-copper", 133, "netherendingores", "uniform", false, "netherendingores:ore_nether_modded_1", "copper_ore", "minecraft:netherrack", 8, 8, 10, 118, true, "all", "whitelist", new int[]{-1}),
     NETHER_IRIDIUM_ORE ("nether-iridium", 110, "netherendingores", "uniform", false, "netherendingores:ore_nether_modded_1", "iridium_ore", "minecraft:netherrack", 2, 1, 10, 118, true, "all", "whitelist", new int[]{-1}),
@@ -75,6 +78,7 @@ public enum BlockData {
     NETHER_IRON_ORE ("nether-iron", 105, "netherendingores", "uniform", false, "netherendingores:ore_nether_vanilla", "iron_ore", "minecraft:netherrack", 8, 8, 10, 118, true, "all", "whitelist", new int[]{-1}),
     NETHER_LAPIS_ORE ("nether-lapis", 102, "netherendingores", "uniform", false, "netherendingores:ore_nether_vanilla", "lapis_ore", "minecraft:netherrack", 6, 6, 10, 118, true, "all", "whitelist", new int[]{-1}),
     NETHER_REDSTONE_ORE ("nether-redstone", 104, "netherendingores", "uniform", false, "netherendingores:ore_nether_vanilla", "redstone_ore", "minecraft:netherrack", 8, 6, 10, 118, true, "all", "whitelist", new int[]{-1}),
+    NETHER_NETHERFISH_BLOCK ("nether-netherfish-block", 190, "netherendingores", "uniform", false, "netherendingores:block_nether_netherfish", "", "minecraft:netherrack", 12, 8, 10, 118, true, "all", "whitelist", new int[]{-1}),
     OVERWORLD_QUARTZ_ORE ("overworld-quartz", 137, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "overworld_quartz_ore", "minecraft:stone", 8, 10, 0, 64, true, "all", "blacklist", new int[]{-1,1}),
     END_QUARTZ_ORE ("end-quartz", 137, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "end_quartz_ore", "minecraft:end_stone", 5, 7, 10, 55, true, "all", "whitelist", new int[]{1}),
     OVERWORLD_ARDITE_ORE ("overworld-ardite", 131, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "overworld_ardite_ore", "minecraft:stone", 1, 10, 0, 64, true, "all", "blacklist", new int[]{-1,1}),
@@ -86,6 +90,7 @@ public enum BlockData {
     OVERWORLD_ZANITE_ORE ("overworld-zanite", 130, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "overworld_zanite_ore", "minecraft:stone", 4, 2, 0, 64, true, "all", "blacklist", new int[]{-1,1}),
     OVERWORLD_ARKENIUM_ORE ("overworld-arkenium", 136, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "overworld_arkenium_ore", "minecraft:stone", 3, 7, 0, 64, true, "all", "blacklist", new int[]{-1,1}),
     OVERWORLD_ICESTONE_ORE ("overworld-icestone", 134, "netherendingores", "uniform", false, "netherendingores:ore_other_1", "overworld_icestone_ore", "minecraft:stone", 5, 3, 0, 64, true, "all", "blacklist", new int[]{-1,1});
+	// End Netherending Ores Data, change the last line to a comma at the end to add more.
 
 	
 	private String objectRef;

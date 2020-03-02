@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 public class JSONOreGen {
 	
 	// Netherending ores uses "blocks" for the variant property name in its json files
+	// TODO: This should be on each ore on the Enum not a hardcoded constant, will make adding 
 	private static final String variantName = "blocks";
 
 	/**
@@ -86,17 +87,21 @@ public class JSONOreGen {
 		JsonGenerator g = fac.createGenerator(new File("jsonout/cofh/"+fileName+".json"), JsonEncoding.UTF8).setPrettyPrinter(pp);
 		
 		g.writeStartObject();
-			g.writeStringField("dependencies", bd.getDependencies());				
+			if (bd.getDependencies() != "") g.writeStringField("dependencies", bd.getDependencies()); // Support having no dependencies for vanilla blocks
 			g.writeObjectFieldStart("populate");
 				g.writeObjectFieldStart(bd.getObjectRef());
 					g.writeStringField("distribution", bd.getDistribution());
-					g.writeObjectFieldStart("generator");
-						g.writeObjectFieldStart("block");
+					g.writeObjectFieldStart("generator");					
+					if (bd.getVariant() == "") {
+						g.writeStringField("block", bd.getName()); // Block has no variants
+					} else {
+						g.writeObjectFieldStart("block"); // Variant version code block
 							g.writeStringField("name", bd.getName());
 							g.writeObjectFieldStart("properties");
 								g.writeStringField(variantName, bd.getVariant());
 							g.writeEndObject();
 						g.writeEndObject();
+					}
 						g.writeStringField("material", bd.getMaterial());
 						g.writeNumberField("cluster-size", bd.getClusterSize());
 					g.writeEndObject();
